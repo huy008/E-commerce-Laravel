@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    @include('backend.dashboard.component.head')
+</head>
+
+<body>
+    <div id="wrapper">
+        @include('backend.dashboard.component.sidebar')
+
+        <div id="page-wrapper" class="gray-bg">
+
+            @include('backend.dashboard.component.header')
+
+            @include($template)
+
+            @include('backend.dashboard.component.footer')
+        </div>
+
+    </div>
+
+
+    <!-- Mainly scripts -->
+    @include('backend.dashboard.component.script')
+</body>
+
+</html>
