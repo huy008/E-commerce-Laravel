@@ -27,7 +27,7 @@ class UserController extends Controller
         $users = $this->userService->paginate($request);
         $config = [
             'js' => [
-                '/ecommerce/ecommerce/public/backend/js/plugins/switchery/switchery.js',
+                '/backend/js/plugins/switchery/switchery.js',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
             ],
             'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],
@@ -42,8 +42,8 @@ class UserController extends Controller
         $config = [
             'js' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-                '/ecommerce/ecommerce/public/backend/plugins/ckfinder_2/ckfinder.js',
-                '/ecommerce/ecommerce/public/backend/library/finder.js',        '/ecommerce/ecommerce/public/backend/library/location.js'
+                '/backend/plugins/ckfinder_2/ckfinder.js',
+                '/backend/library/finder.js',        '/backend/library/location.js'
             ],
             'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],
         ];
@@ -66,9 +66,9 @@ class UserController extends Controller
         $user = $this->userRepository->findById($id);
         $config = [
             'js' => [
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',                  '/ecommerce/ecommerce/public/backend/library/location.js',
-                '/ecommerce/ecommerce/public/backend/plugins/ckfinder_2/ckfinder.js',
-                '/ecommerce/ecommerce/public/backend/library/finder.js'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',                  '/backend/library/location.js',
+                '/backend/plugins/ckfinder_2/ckfinder.js',
+                '/backend/library/finder.js'
             ],
             'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],
         ];

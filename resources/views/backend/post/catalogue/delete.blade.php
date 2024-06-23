@@ -1,3 +1,12 @@
+@if ($errors->any())
+<div class="alert alert-danger">
+     <ul>
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @endforeach
+     </ul>
+</div>
+@endif
 <form action="{{route('post.catalogue.destroy',$postCatalogue->id)}}" method="post">
      @csrf
      <div class="wrapper wrapper-content animated fadeInRight">
@@ -18,15 +27,10 @@
                                         <div class="col-lg-6">
                                              <div class="form-row">
                                                   <label for="" class="control-label text-right">Ten</label>
-                                                  <input type="text" name="description" value="{{ old('name' ,($postCatalogue->name) ?? '' )}}" class="form-control" placeholder="" autocomplete="off">
+                                                  <input type="text" name="name" value="{{ old('name' ,($postCatalogue->name) ?? '' )}}" class="form-control" placeholder="" autocomplete="off">
                                              </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                             <div class="form-row">
-                                                  <label for="" class="control-label text-right">Mo ta</label>
-                                                  <input type="text" name="name" value="{{ old('description',($postCatalogue->description) ?? '') }}" class="form-control" placeholder="" autocomplete="off">
-                                             </div>
-                                        </div>
+
                                    </div>
 
                               </div>

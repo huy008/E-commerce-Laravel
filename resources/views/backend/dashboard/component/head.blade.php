@@ -10,19 +10,20 @@
 <title>INSPINIA | Dashboard v.2</title>
 
 <link
-     href=" {{ asset('ecommerce/ecommerce/public/backend/css/bootstrap.min.css')}}"
+     href=" {{ asset('backend/css/bootstrap.min.css')}}"
      rel="stylesheet"
 >
 <link
-     href="{{ asset('ecommerce/ecommerce/public/backend/font-awesome/css/font-awesome.css')}}"
+     href="{{ asset('backend/font-awesome/css/font-awesome.css')}}"
      rel="stylesheet"
 >
 
 <link
-     href="{{ asset('ecommerce/ecommerce/public/backend/css/animate.css')}}"
+     href="{{ asset('backend/css/animate.css')}}"
      rel="stylesheet"
 >
-@if(isset($config[' css']) && is_array($config['css']) ) @foreach($config['css'] as $key=> $value)
+@if(isset($config['css']) && is_array($config['css']) ) 
+@foreach($config['css'] as $key=> $value)
 {!! '
 <link
      href="'.$value.'"
@@ -31,11 +32,11 @@
 @endforeach
 @endif
 <link
-     href="{{ asset('ecommerce/ecommerce/public/backend/css/style.css')}}"
+     href="{{ asset('backend/css/style.css')}}"
      rel="stylesheet"
 >
 <link
-     href="{{ asset('ecommerce/ecommerce/public/backend/css/plugins/switchery/switchery.css')}}"
+     href="{{ asset('backend/css/plugins/switchery/switchery.css')}}"
      rel="stylesheet"
 >
-<script src="{{ asset('ecommerce/ecommerce/public/backend/js/jquery-3.1.1.min.js')}}"></script>
+<script src="{{ asset('backend/js/jquery-3.1.1.min.js')}}"></script>

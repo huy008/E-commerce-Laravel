@@ -24,4 +24,19 @@ class Language extends Model
           'user_id'
      ];
      protected $table = 'languages';
+     protected $primaryKey = 'code';
+     public $incrementing = false;
+     public function languages()
+     {
+          return $this->belongsToMany(PostCatalogue::class, 'post_catalogue_language', 'language_id', 'post_catalogue_id')
+               ->withPivot(
+                    'name',
+                    'canonical',
+                    'meta_title',
+                    'meta_keyword',
+                    'meta_description',
+                    'content',
+                    'description'
+               )->withTimestamps();
+     }
 }

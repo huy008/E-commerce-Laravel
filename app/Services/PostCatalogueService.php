@@ -3,23 +3,35 @@
 namespace App\Services;
 
 use Exception;
+use App\Classes\Nestedsetbie;
 use App\Models\PostCatalogue;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\Interfaces\PostCatalogueServiceInterface;
 use App\Repositories\Interfaces\PostCatalogueRepositoryInterface as PostCatalogueRepository;
+use App\Repositories\Interfaces\RouterRepositoryInterface as RouterRepository;
 
 /**
  * Class PostService
  * @package App\Services
  */
-class PostCatalogueService implements PostCatalogueServiceInterface
+class PostCatalogueService extends BaseService implements PostCatalogueServiceInterface
 {
-     protected $PostCatalogueRepository;
-     public function __construct(PostCatalogueRepository $PostCatalogueRepository)
+     protected $postCatalogueRepository;
+     protected $nestedset;
+     protected $routerRepository;
+
+     public function __construct(PostCatalogueRepository $postCatalogueRepository, RouterRepository $routerRepository)
      {
-          $this->PostCatalogueRepository = $PostCatalogueRepository;
+          $this->postCatalogueRepository = $postCatalogueRepository;
+          $this->routerRepository= $routerRepository;
+          $this->nestedset = new Nestedsetbie([
+               'table' => 'post_catalogues',
+               'foreignkey' => 'post_catalogue_id',
+               'language_id' =>  1,
+          ]);
      }
 
      public function paginate($request)
@@ -27,7 +39,23 @@ class PostCatalogueService implements PostCatalogueServiceInterface
           $condition['keyword'] = addslashes($request->input('keyword'));
           $perPage = $request->integer('perpage');
           $PostCatalogue =
-               $this->PostCatalogueRepository->pagination(['id', 'description', 'name', 'publish'], $condition, [], $perPage, []);
+               $this->postCatalogueRepository->pagination(
+                    [
+                         'post_catalogues.id',
+                         'post_catalogues.publish',
+                         'post_catalogues.image',
+                         'post_catalogues.level',
+                         'tb2.name',
+                         'tb2.canonical'
+                    ],
+                    $condition,
+               [
+                    ['post_catalogue_language as tb2', 'tb2.post_catalogue_id', '=', 'post_catalogues.id'],
+               ],
+                    $perPage,
+                    [],
+                    ['post_catalogues.left', 'asc'],
+               );
           return $PostCatalogue;
      }
 
@@ -35,9 +63,27 @@ class PostCatalogueService implements PostCatalogueServiceInterface
      {
           DB::beginTransaction();
           try {
-               $payload = $request->except(['_token', 'send']);
-               $PostCatalogue = $this->PostCatalogueRepository->create($payload);
+               $payload = $request->only(['parentid', 'follow', 'publish', 'image']);
+               $payload["user_id"] = Auth::id();
+               $postCatalogue = $this->postCatalogueRepository->create($payload);
+               if ($postCatalogue->id > 0) {
+                    $payloadLanguage = $request->only(['name', 'description', 'content', 'meta_title', 'meta_keyword', 'meta_description', 'canonical']);
+                    $payloadLanguage['language_id'] = $this->currentLanguage();
+                    $payloadLanguage['post_catalogue_id'] = $postCatalogue->id;
+                    $language = $this->postCatalogueRepository->createTranslatePivot($postCatalogue, $payloadLanguage);
+
+                    $router = [
+                         'canonical' => $payloadLanguage['canonical'],
+                         'module_id' => $postCatalogue->id,
+                         'controllers' => 'App\Http\Controllers\Frontend\PostCatalogueController'
+                    ];
+                    $this->routerRepository->create($router);
+               }
+               $this->nestedset->Get('level ASC', 'order ASC');
+               $this->nestedset->Recursive(0, $this->nestedset->Set());
+               $this->nestedset->Action();
                DB::commit();
+
                return true;
           } catch (Exception $e) {
                DB::rollBack();
@@ -51,10 +97,33 @@ class PostCatalogueService implements PostCatalogueServiceInterface
      {
           DB::beginTransaction();
           try {
-               $payload = $request->except(['_token', 'send']);
+               $postCatalogue=$this->postCatalogueRepository->findById($id);
+               $payload = $request->only(['parentid', 'follow', 'publish', 'image']);
+               $flag = $this->postCatalogueRepository->update($id,$payload);
+               if($flag == true) {
+                    $payloadLanguage = $request->only(['name', 'description', 'content', 'meta_title', 'meta_keyword', 'meta_description', 'canonical']);
+                    $payloadLanguage['language_id'] = $this->currentLanguage();
+                    $payloadLanguage['post_catalogue_id'] = $id;
+                    $postCatalogue->languages()->detach($payloadLanguage['language_id'],$id);
+                    $response = $this->postCatalogueRepository->createTranslatePivot($postCatalogue, $payloadLanguage);
 
-               $Post = $this->PostCatalogueRepository->update($id, $payload);
+                    $payloadRouter = [
+                         'canonical' => $payloadLanguage['canonical'],
+                         'module_id' => $postCatalogue->id,
+                         'controllers' => 'App\Http\Controllers\Frontend\PostCatalogueController'
+                    ];
+                    $condition = [
+                         ['module_id','=',$id],
+                         ['controllers' ,'=', 'App\Http\Controllers\Frontend\PostCatalogueController']
+                    ];
+                    $router= $this->routerRepository->findByCondition($condition);
+                    $this->routerRepository->update($router->id);
 
+               $this->nestedset->Get('level ASC', 'order ASC');
+               $this->nestedset->Recursive(0, $this->nestedset->Set());
+               $this->nestedset->Action();
+                  
+               }
                DB::commit();
                return true;
           } catch (Exception $e) {
@@ -69,8 +138,10 @@ class PostCatalogueService implements PostCatalogueServiceInterface
      {
           DB::beginTransaction();
           try {
-               $Post = $this->PostCatalogueRepository->destroy($id);
-
+               $postCatalogue = $this->postCatalogueRepository->destroy($id);
+               $this->nestedset->Get('level ASC', 'order ASC');
+               $this->nestedset->Recursive(0, $this->nestedset->Set());
+               $this->nestedset->Action();
                DB::commit();
                return true;
           } catch (Exception $e) {
@@ -86,7 +157,7 @@ class PostCatalogueService implements PostCatalogueServiceInterface
           DB::beginTransaction();
           try {
                $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-               $Post = $this->PostCatalogueRepository->update($post['modelId'], $payload);
+               $Post = $this->postCatalogueRepository->update($post['modelId'], $payload);
 
                DB::commit();
                return true;
@@ -103,7 +174,7 @@ class PostCatalogueService implements PostCatalogueServiceInterface
           DB::beginTransaction();
           try {
                $payload[$post['field']] =  $post['value'];
-               $Post = $this->PostCatalogueRepository->updateByWhereIn('id', $post['id'], $payload);
+               $Post = $this->postCatalogueRepository->updateByWhereIn('id', $post['id'], $payload);
 
                DB::commit();
                return true;

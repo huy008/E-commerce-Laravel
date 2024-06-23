@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\PermissionController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Controllers\Backend\AuthController;
+use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\LanguageController;
@@ -70,11 +72,30 @@ Route::group(['prefix' => 'post/catalogue'], function () {
     Route::post('{id}/destroy', [PostCatalogueController::class, "destroy"])->name('post.catalogue.destroy')->middleware('admin');
 });
 
+Route::group(['prefix' => 'post'], function () {
+    Route::get('index', [PostController::class, "index"])->name('post.index')->middleware('admin');
+    Route::get('create', [PostController::class, "create"])->name('post.create')->middleware('admin');
+    Route::post('store', [PostController::class, "store"])->name('post.store')->middleware('admin');
+    Route::get('{id}/edit', [PostController::class, "edit"])->name('post.edit')->middleware('admin');
+    Route::get('{id}/delete', [PostController::class, "delete"])->name('post.delete')->middleware('admin');
+    Route::post('{id}/update', [PostController::class, "update"])->name('post.update')->middleware('admin');
+    Route::post('{id}/destroy', [PostController::class, "destroy"])->name('post.destroy')->middleware('admin');
+});
+Route::group(['prefix' => 'permission'], function () {
+    Route::get('index', [PermissionController::class, "index"])->name('permission.index')->middleware('admin');
+    Route::get('create', [PermissionController::class, "create"])->name('permission.create')->middleware('admin');
+    Route::permission('store', [PermissionController::class, "store"])->name('permission.store')->middleware('admin');
+    Route::get('{id}/edit', [PermissionController::class, "edit"])->name('permission.edit')->middleware('admin');
+    Route::get('{id}/delete', [PermissionController::class, "delete"])->name('permission.delete')->middleware('admin');
+    Route::permission('{id}/update', [PermissionController::class, "update"])->name('permission.update')->middleware('admin');
+    Route::permission('{id}/destroy', [PermissionController::class, "destroy"])->name('permission.destroy')->middleware('admin');
+});
+
 Route::get('admin', [AuthController::class, "index"])->name('auth.admin')->middleware('login');
 
 Route::post('login', [AuthController::class, "login"])->name('auth.login');
 Route::get('logout', [AuthController::class, "logout"])->name('auth.logout');
-
+ 
 Route::get('ajax/location/getLocation', [LocationController::class, "getLocation"])->name('ajax.location.index')->middleware('admin');
 Route::post('ajax/dashboard/changeStatus', [AjaxDashboardController::class, "changeStatus"])->name('ajax.dashboard.changeStatus')->middleware('admin');
 Route::post('ajax/dashboard/changeStatusAll', [AjaxDashboardController::class, "changeStatusAll"])->name('ajax.dashboard.changeStatusAll')->middleware('admin');

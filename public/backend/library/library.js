@@ -15,31 +15,31 @@
     };
 
     HT.changeStatus = () => {
-        $(document).on("change", ".status", function (e) {
-            let _this = $(this);
-            let value = _this.val();
-            let modelId = _this.attr("data-modelId");
-            let option = {
-                value: value,
-                modelId: modelId,
-                model: _this.attr("data-model"),
-                field: _this.attr("data-field"),
-                _token: token,
-            };
-            $.ajax({
-                url: "http://localhost/ecommerce/ecommerce/public/ajax/dashboard/changeStatus",
-                type: "POST",
-                data: option,
-                dataType: "json",
-                success: function (res) {
-                    console.log(res);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR, textStatus, errorThrown);
-                },
-            });
-            e.preventDefault();
-        });
+                $(document).on("change", ".status", function (e) {
+                    let _this = $(this);
+                    let value = _this.val();
+                    let modelId = _this.attr("data-modelId");
+                    let option = {
+                        value: value,
+                        modelId: modelId,
+                        model: _this.attr("data-model"),
+                        field: _this.attr("data-field"),
+                        _token: token,
+                    };
+                    $.ajax({
+                        url: "http://localhost/ecommerce/ecommerce/public/ajax/dashboard/changeStatus",
+                        type: "POST",
+                        data: option,
+                        dataType: "json",
+                        success: function (res) {
+                            console.log(res);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR, textStatus, errorThrown);
+                        },
+                    });
+                    e.preventDefault();
+                });
     };
 
     HT.checkAll = () => {

@@ -40,7 +40,7 @@
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">QL Bai viet</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                          <li><a href="{{route('post.catalogue.index')}}">QL Bai viet</a></li>
-                         <li><a href="{{route('post.catalogue.index')}}">QL Nhom Bai viet</a></li>
+                         <li><a href="{{route('post.index')}}">QL Nhom Bai viet</a></li>
                     </ul>
                </li>
           </ul>
