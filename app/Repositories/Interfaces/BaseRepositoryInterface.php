@@ -8,7 +8,7 @@ namespace App\Repositories\Interfaces;
  */
 interface BaseRepositoryInterface
 {
-     public function all();
+      public function all(array $relations = []);
      public function findById(int $modelId, array $column,  array $relation );
      public function update(int $id = 0, array $payload = []);
      public function destroy(int $id = 0);
@@ -17,4 +17,5 @@ interface BaseRepositoryInterface
       public function createTranslatePivot($model ,array $payload = []);
       public function  createRelationPivot($model, array $payload = [], string $relation = '');
       public function findByCondition($condition = []);
+      public function createBath(array $payload = []);
 }

@@ -13,10 +13,7 @@
 $url = ($config['method'] == 'create') ? route ('user.catalogue.store') : route('user.catalogue.update',$userCatalogue->id );
 @endphp
 
-<form
-     action="{{$url}}"
-     method="post"
->
+<form action="{{$url}}" method="post">
      @csrf
      <div class="wrapper wrapper-content animated fadeInRight">
           <div class="row">
@@ -35,34 +32,14 @@ $url = ($config['method'] == 'create') ? route ('user.catalogue.store') : route(
                                    <div class="row">
                                         <div class="col-lg-6">
                                              <div class="form-row">
-                                                  <label
-                                                       for=""
-                                                       class="control-label text-right"
-                                                  >Ten Nhom</label>
-                                                  <input
-                                                       type="text"
-                                                       name="name"
-                                                       value="{{ old('name' ,($userCatalogue->name) ?? '' )}}"
-                                                       class="form-control"
-                                                       placeholder=""
-                                                       autocomplete="off"
-                                                  >
+                                                  <label for="" class="control-label text-right">Ten Nhom</label>
+                                                  <input type="text" name="name" value="{{ old('name' ,($userCatalogue->name) ?? '' )}}" class="form-control" placeholder="" autocomplete="off">
                                              </div>
                                         </div>
                                         <div class="col-lg-6">
                                              <div class="form-row">
-                                                  <label
-                                                       for=""
-                                                       class="control-label text-right"
-                                                  >Mo ta</label>
-                                                  <input
-                                                       type="text"
-                                                       name="description"
-                                                       value="{{ old('description',($userCatalogue->description) ?? '') }}"
-                                                       class="form-control"
-                                                       placeholder=""
-                                                       autocomplete="off"
-                                                  >
+                                                  <label for="" class="control-label text-right">Mo ta</label>
+                                                  <input type="text" name="description" value="{{ old('description',($userCatalogue->description) ?? '') }}" class="form-control" placeholder="" autocomplete="off">
                                              </div>
                                         </div>
                                    </div>
@@ -73,8 +50,5 @@ $url = ($config['method'] == 'create') ? route ('user.catalogue.store') : route(
 
           </div>
 
-          <button
-               type="submit"
-               class="btn btn-primary"
-          >Luu lai</button>
+          <button type="submit" class="btn btn-primary">Luu lai</button>
 </form>

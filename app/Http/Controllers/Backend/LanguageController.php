@@ -24,7 +24,7 @@ class LanguageController extends Controller
           $languages = $this->LanguageService->paginate($request);
           $config = [
                'js' => [
-                    '/backend/js/plugins/switchery/switchery.js',
+                    '/ecommerce/ecommerce/public/backend//js/plugins/switchery/switchery.js',
                     'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
                ],
                'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],
@@ -38,8 +38,8 @@ class LanguageController extends Controller
 
           $config = [
                'js' => [
-                    '/backend/plugins/ckfinder_2/ckfinder.js',
-                    '/backend/library/finder.js'
+                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
+                    '/ecommerce/ecommerce/public/backend//library/finder.js'
                ]
           ];
           $config['method'] = 'create';
@@ -60,8 +60,8 @@ class LanguageController extends Controller
           $language = $this->LanguageRepository->findById($id);
           $config = [
                'js' => [
-                    '/backend/plugins/ckfinder_2/ckfinder.js',
-                    '/backend/library/finder.js'
+                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
+                    '/ecommerce/ecommerce/public/backend//library/finder.js'
                ]
           ];
           $config['method'] = 'update';

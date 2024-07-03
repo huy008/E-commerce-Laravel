@@ -20,7 +20,6 @@ class Router extends Model
           'module_id'
      ];
      protected $table = 'routers';
-     protected $primaryKey = 'code';
-     public $incrementing = false;
+
     
 }

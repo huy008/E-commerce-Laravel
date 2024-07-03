@@ -14,4 +14,5 @@ interface PermissionRepositoryInterface
      public function destroy(int $id = 0);
      public function pagination(array $column = ['*'], array $conditions = [], array $join = [], int $perPage = 15);
      public function updateByWhereIn(string $whereInField, array $whereIn = [], array $payload = []);
+     public function all();
 }

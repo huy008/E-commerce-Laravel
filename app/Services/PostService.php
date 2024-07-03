@@ -43,7 +43,7 @@ class PostService extends BaseService implements PostServiceInterface
                     ['post_catalogue_post as tb3', 'posts.id', '=', 'tb3.post_id']
                ],
                $perPage,
-               ['post_catalogues'],
+              
                [],
                $this->whereRaw($request)
           );
@@ -54,6 +54,7 @@ class PostService extends BaseService implements PostServiceInterface
      {
           DB::beginTransaction();
           try {
+             
                $payload = $request->only(['follow', 'publish', 'image', 'post_catalogue_id','album']);
                $payload["user_id"] = Auth::id();
                $payload["album"] = json_encode($payload["album"]);

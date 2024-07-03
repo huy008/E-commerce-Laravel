@@ -21,16 +21,16 @@ class PermissionController extends Controller
      }
      public function index(Request $request)
      {
-          $Permissions = $this->PermissionService->paginate($request);
+          $permissions = $this->PermissionService->paginate($request);
           $config = [
                'js' => [
-                    '/backend/js/plugins/switchery/switchery.js',
+                    '/ecommerce/ecommerce/public/backend//js/plugins/switchery/switchery.js',
                     'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
                ],
                'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],
           ];
           $template = 'backend.permission.index';
-          return view('backend.dashboard.layout', compact('template', 'config', 'Permissions'));
+          return view('backend.dashboard.layout', compact('template', 'config', 'permissions'));
      }
 
      public function create()
@@ -38,8 +38,8 @@ class PermissionController extends Controller
 
           $config = [
                'js' => [
-                    '/backend/plugins/ckfinder_2/ckfinder.js',
-                    '/backend/library/finder.js'
+                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
+                    '/ecommerce/ecommerce/public/backend//library/finder.js'
                ]
           ];
           $config['method'] = 'create';
@@ -50,45 +50,45 @@ class PermissionController extends Controller
      public function store(Request $request)
      {
           if ($this->PermissionService->create($request)) {
-               return redirect()->route('Permission.index')->with('success', 'Thêm mới bản ghi thành công');
+               return redirect()->route('permission.index')->with('success', 'Thêm mới bản ghi thành công');
           }
-          return redirect()->route('Permission.index')->with('error', 'Thêm mới bản ghi không thành công. Hãy thử lại');
+          return redirect()->route('permission.index')->with('error', 'Thêm mới bản ghi không thành công. Hãy thử lại');
      }
 
      public function edit($id)
      {
-          $Permission = $this->PermissionRepository->findById($id);
+          $permission = $this->PermissionRepository->findById($id);
           $config = [
                'js' => [
-                    '/backend/plugins/ckfinder_2/ckfinder.js',
-                    '/backend/library/finder.js'
+                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
+                    '/ecommerce/ecommerce/public/backend//library/finder.js'
                ]
           ];
           $config['method'] = 'update';
           $template = 'backend.permission.create';
-          return view('backend.dashboard.layout', compact('template', 'config', 'Permission'));
+          return view('backend.dashboard.layout', compact('template', 'config', 'permission'));
      }
 
      public function update($id, Request $request)
      {
           if ($this->PermissionService->update($id, $request)) {
-               return redirect()->route('Permission.index')->with('success', 'Thêm mới bản ghi thành công');
+               return redirect()->route('permission.index')->with('success', 'Thêm mới bản ghi thành công');
           }
-          return redirect()->route('Permission.index')->with('error', 'Thêm mới bản ghi không thành công. Hãy thử lại');
+          return redirect()->route('permission.index')->with('error', 'Thêm mới bản ghi không thành công. Hãy thử lại');
      }
 
      public function delete($id)
      {
-          $Permission = $this->PermissionRepository->findById($id);
+          $permission = $this->PermissionRepository->findById($id);
           $template = 'backend.permission.delete';
-          return view('backend.dashboard.layout', compact('template', 'Permission'));
+          return view('backend.dashboard.layout', compact('template', 'permission'));
      }
 
      public function destroy($id)
      {
           if ($this->PermissionService->destroy($id)) {
-               return redirect()->route('Permission.index')->with('success', 'Xoa bản ghi thành công');
+               return redirect()->route('permission.index')->with('success', 'Xoa bản ghi thành công');
           }
-          return redirect()->route('Permission.index')->with('error', 'Xoa bản ghi không thành công. Hãy thử lại');
+          return redirect()->route('permission.index')->with('error', 'Xoa bản ghi không thành công. Hãy thử lại');
      }
 }

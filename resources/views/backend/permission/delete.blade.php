@@ -1,4 +1,4 @@
-<form action="{{route('language.destroy',$language->id)}}" method="post">
+<form action="{{route('permission.destroy',$permission->id)}}" method="post">
      @csrf
      <div class="wrapper wrapper-content animated fadeInRight">
           <div class="row">
@@ -18,13 +18,13 @@
                                         <div class="col-lg-6">
                                              <div class="form-row">
                                                   <label for="" class="control-label text-right">Email</label>
-                                                  <input type="text" name="name" value="{{ old('name' ,($language->name) ?? '' )}}" class="form-control" placeholder="" autocomplete="off">
+                                                  <input type="text" name="name" value="{{ old('name' ,($permission->name) ?? '' )}}" class="form-control" placeholder="" autocomplete="off">
                                              </div>
                                         </div>
                                         <div class="col-lg-6">
                                              <div class="form-row">
                                                   <label for="" class="control-label text-right">Mo ta</label>
-                                                  <input type="text" name="name" value="{{ old('description',($language->description) ?? '') }}" class="form-control" placeholder="" autocomplete="off">
+                                                  <input type="text" name="name" value="{{ old('description',($permission->description) ?? '') }}" class="form-control" placeholder="" autocomplete="off">
                                              </div>
                                         </div>
                                    </div>

@@ -64,10 +64,14 @@ class BaseRepository implements BaseRepositoryInterface
 
           return  $this->model->create($payload);
      }
-
-     public function all()
+     public function createBath(array $payload = [])
      {
-          return $this->model->all();
+          return  $this->model->insert($payload);
+     }
+
+     public function all(array $relations = [])
+     {
+          return $this->model->with($relations)->get();
      }
 
      public function findById(int $modelId, array $column = ['*'], array $relation = [])

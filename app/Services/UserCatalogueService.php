@@ -113,4 +113,26 @@ class UserCatalogueService implements UserCatalogueServiceInterface
                return false;
           }
      }
+
+     public function setPermission($request){
+          DB::beginTransaction();
+          try {
+              $permissions = $request->input('permission');
+               if(count($permissions)){
+              foreach($permissions as $key => $val){
+               $userCatalogue = $this->userCatalogueRepository->findById($key);
+               $userCatalogue->permissions()->detach();
+               $userCatalogue->permissions()->sync($val);
+              }
+          }
+
+               DB::commit();
+               return true;
+          } catch (Exception $e) {
+               DB::rollBack();
+               echo $e->getMessage();
+               die();
+               return false;
+          }
+     }
  }

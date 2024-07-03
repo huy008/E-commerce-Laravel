@@ -21,11 +21,11 @@
           <div class="ibox float-e-margins">
                <div class="ibox-title">
                     <h5>Basic Table</h5>
-                    @include('backend.language.component.tool')
+                    @include('backend.permission.component.tool')
                </div>
                <div class="ibox-content">
-                    @include('backend.language.component.filter')
-                    @include('backend.language.component.table')
+                    @include('backend.permission.component.filter')
+                    @include('backend.permission.component.table')
 
 
 

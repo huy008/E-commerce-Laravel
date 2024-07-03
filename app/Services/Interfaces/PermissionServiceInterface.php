@@ -13,6 +13,5 @@ interface PermissionServiceInterface
      public function create($request);
      public function update($id, $request);
      public function destroy($id);
-     public function updateStatus();
-     public function updateStatusAll($post = []);
+
 }

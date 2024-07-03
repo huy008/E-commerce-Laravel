@@ -9,7 +9,7 @@
 @endif
 
 @php
-$url = ($config['method'] == 'create') ? route ('language.store') : route('language.update',$language->id );
+$url = ($config['method'] == 'create') ? route ('permission.store') : route('permission.update',$permission->id );
 @endphp
 
 <form action="{{$url}}" method="post">
@@ -32,34 +32,19 @@ $url = ($config['method'] == 'create') ? route ('language.store') : route('langu
                                         <div class="col-lg-6">
                                              <div class="form-row">
                                                   <label for="" class="control-label text-right">Name</label>
-                                                  <input type="text" name="name" value="{{ old('name' ,($language->name) ?? '' )}}" class="form-control" placeholder="" autocomplete="off">
+                                                  <input type="text" name="name" value="{{ old('name' ,($permission->name) ?? '' )}}" class="form-control" placeholder="" autocomplete="off">
                                              </div>
                                         </div>
                                         <div class="col-lg-6">
                                              <div class="form-row">
                                                   <label for="" class="control-label text-right">canonical</label>
-                                                  <input type="text" name="canonical" value="{{ old('canonical',($language->canonical) ?? '') }}" class="form-control" placeholder="" autocomplete="off">
+                                                  <input type="text" name="canonical" value="{{ old('canonical',($permission->canonical) ?? '') }}" class="form-control" placeholder="" autocomplete="off">
                                              </div>
                                         </div>
                                    </div>
 
 
-                                   <div class="row">
-                                        <div class="col-lg-6">
-                                             <div class="form-row">s
-                                                  <label for="" class="
-                                                  control-label text-right">image</label>
-                                                  <input type="text" name="image" value="{{ old('image' ,($language->image) ?? '' )}}" class="form-control upload-image" placeholder="" autocomplete="off" data-type="Images">
-                                             </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                             <div class="form-row">
-                                                  <label for="" class="control-label text-right">description
-                                                  </label>
-                                                  <input type="text" name="description" value="{{old('description',($language->description) ?? '') }}" class="form-control" placeholder="" autocomplete="off">
-                                             </div>
-                                        </div>
-                                   </div>
+                      
 
                               </div>
 

@@ -34,7 +34,7 @@ class PostController extends Controller
           $posts = $this->PostService->paginate($request);
           $config = [
                'js' => [
-                    '/backend/js/plugins/switchery/switchery.js',
+                    '/ecommerce/ecommerce/public/backend//js/plugins/switchery/switchery.js',
                     'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
                ],
                'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],
@@ -48,10 +48,10 @@ class PostController extends Controller
      {
           $config = [
                'js' => [
-                    '/backend/plugins/ckfinder_2/ckfinder.js',
-                    '/backend/plugins/ckeditor/ckeditor.js',
-                    '/backend/library/finder.js',
-                    '/backend/library/seo.js',
+                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
+                    '/ecommerce/ecommerce/public/backend//plugins/ckeditor/ckeditor.js',
+                    '/ecommerce/ecommerce/public/backend//library/finder.js',
+                    '/ecommerce/ecommerce/public/backend//library/seo.js',
                     'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
                ],
                'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],
@@ -75,10 +75,10 @@ class PostController extends Controller
           $post = $this->PostRepository->getPostById($id,$this->currentLanguage());
           $config = [
                'js' => [
-                    '/backend/plugins/ckfinder_2/ckfinder.js',
-                    '/backend/plugins/ckeditor/ckeditor.js',
-                    '/backend/library/finder.js',
-                    '/backend/library/seo.js',
+                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
+                    '/ecommerce/ecommerce/public/backend//plugins/ckeditor/ckeditor.js',
+                    '/ecommerce/ecommerce/public/backend//library/finder.js',
+                    '/ecommerce/ecommerce/public/backend//library/seo.js',
                     'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
                ],
                'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],

@@ -30,11 +30,11 @@ class PostCatalogueController extends Controller
           $this->language = $this->currentLanguage();
      }
      public function index(Request $request)
-     {
+     {    
           $postCatalogues = $this->PostCatalogueService->paginate($request);
           $config = [
                'js' => [
-                    '/backend/js/plugins/switchery/switchery.js',
+                    '/ecommerce/ecommerce/public/backend//js/plugins/switchery/switchery.js',
                     'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
                ],
                'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],
@@ -47,10 +47,10 @@ class PostCatalogueController extends Controller
      {
           $config = [
                'js' => [
-                    '/backend/plugins/ckfinder_2/ckfinder.js',
-                    '/backend/plugins/ckeditor/ckeditor.js',
-                    '/backend/library/finder.js',
-                    '/backend/library/seo.js'
+                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
+                    '/ecommerce/ecommerce/public/backend//plugins/ckeditor/ckeditor.js',
+                    '/ecommerce/ecommerce/public/backend//library/finder.js',
+                    '/ecommerce/ecommerce/public/backend//library/seo.js'
                ]
           ];
           $dropdown = $this->nestedset->dropdown();
@@ -72,10 +72,10 @@ class PostCatalogueController extends Controller
           $postCatalogue = $this->PostCatalogueRepository->getPostCatalogueById($id, $this->language);
           $config = [
                'js' => [
-                    '/backend/plugins/ckfinder_2/ckfinder.js',
-                    '/backend/plugins/ckeditor/ckeditor.js',
-                    '/backend/library/finder.js',
-                    '/backend/library/seo.js'
+                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
+                    '/ecommerce/ecommerce/public/backend//plugins/ckeditor/ckeditor.js',
+                    '/ecommerce/ecommerce/public/backend//library/finder.js',
+                    '/ecommerce/ecommerce/public/backend//library/seo.js'
                ]
           ];
           $config['method'] = 'update';

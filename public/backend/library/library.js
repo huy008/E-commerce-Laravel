@@ -98,7 +98,7 @@
                 };
                 console.log(option);
                 $.ajax({
-                    url: "http://localhost/ecommerce/ecommerce/public/ajax/dashboard/changeStatusAll",
+                    url: "http://127.0.0.1:8000/ajax/dashboard/changeStatusAll",
                     type: "POST",
                     data: option,
                     dataType: "json",
@@ -115,6 +115,7 @@
             });
         }
     };
+
 
     $(document).ready(function () {
         HT.switchery();

@@ -37,7 +37,6 @@ class PermissionService implements PermissionServiceInterface
           DB::beginTransaction();
           try {
                $payload = $request->except(['_token', 'send']);
-               $payload['user_id'] = Auth::id();
                $Permission = $this->PermissionRepository->create($payload);
                DB::commit();
                return true;
@@ -54,7 +53,6 @@ class PermissionService implements PermissionServiceInterface
           DB::beginTransaction();
           try {
                $payload = $request->except(['_token', 'send']);
-
                $user = $this->PermissionRepository->update($id, $payload);
 
                DB::commit();
@@ -83,37 +81,7 @@ class PermissionService implements PermissionServiceInterface
           }
      }
 
-     public function updateStatus($post = [])
-     {
-          DB::beginTransaction();
-          try {
-               $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-               $user = $this->PermissionRepository->update($post['modelId'], $payload);
+   
 
-               DB::commit();
-               return true;
-          } catch (Exception $e) {
-               DB::rollBack();
-               echo $e->getMessage();
-               die();
-               return false;
-          }
-     }
-
-     public function updateStatusAll($post = [])
-     {
-          DB::beginTransaction();
-          try {
-               $payload[$post['field']] =  $post['value'];
-               $user = $this->PermissionRepository->updateByWhereIn('id', $post['id'], $payload);
-
-               DB::commit();
-               return true;
-          } catch (Exception $e) {
-               DB::rollBack();
-               echo $e->getMessage();
-               die();
-               return false;
-          }
-     }
+     
 }

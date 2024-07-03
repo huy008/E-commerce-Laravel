@@ -15,12 +15,15 @@ class Permission extends Model
       * @var array<int, string>
       */
      protected $fillable = [
+          'id',
           'name',
           'canonical',
-
      ];
      protected $table = 'permissions';
-     protected $primaryKey = 'code';
-     public $incrementing = false;
+     
+     public function user_catalogues()
+     {
+          return $this->belongsToMany(UserCatalogue::class,'user_catalogue_permission', 'permission_id', 'user_catalogue_id');
+     }
   
 }

@@ -21,7 +21,7 @@
                               <input type="text" name="keyword" value="{{request('keyword')?:old('keyword')}}" class=" form-control"><button type="submit" name="search" value="Search" class="btn btn-primary">Tim kiem</button>
                          </div>
                     </div>
-                    <a href="{{route('language.create')}}" class="btn btn-danger">Them moi</a>
+                    <a href="{{route('permission.create')}}" class="btn btn-danger">Them moi</a>
                </div>
           </div>
      </div>

@@ -25,6 +25,7 @@
                     <ul class="nav nav-second-level">
                          <li><a href="{{route('user.index')}}">QL Thanh Vien</a></li>
                          <li><a href="{{route('user.catalogue.index')}}">QL Nhom Thanh Vien</a></li>
+                         <li><a href="{{route('permission.index')}}">QL Quyen</a></li>
                     </ul>
                </li>
 
@@ -41,6 +42,26 @@
                     <ul class="nav nav-second-level">
                          <li><a href="{{route('post.catalogue.index')}}">QL Bai viet</a></li>
                          <li><a href="{{route('post.index')}}">QL Nhom Bai viet</a></li>
+                    </ul>
+               </li>
+               <li class="active">
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">QL Thuoc tinh</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                         <li><a href="{{route('attribute.catalogue.index')}}">QL Thuoc tinh</a></li>
+                         <li><a href="{{route('attribute.index')}}">QL Nhom Thuoc tinh</a></li>
+                    </ul>
+               </li>
+               <li class="active">
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">QL SAn pham</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                         <li><a href="{{route('product.catalogue.index')}}">QL SAn pham</a></li>
+                         <li><a href="{{route('product.index')}}">QL Nhom SAn pham</a></li>
+                    </ul>
+               </li>
+               <li class="active">
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">QL Module</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                         <li><a href="{{route('generate.index')}}">Xem Module</a></li>
                     </ul>
                </li>
           </ul>

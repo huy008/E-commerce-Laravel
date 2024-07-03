@@ -15,4 +15,6 @@ interface UserCatalogueServiceInterface
      public function destroy($id);
      public function updateStatus();
      public function updateStatusAll($post = []);
+     public function setPermission($request);
+
 }
