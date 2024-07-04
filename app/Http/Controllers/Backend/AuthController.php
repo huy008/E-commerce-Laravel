@@ -13,6 +13,7 @@ class AuthController extends Controller
         return view('backend.auth.login');
     }
     public function login(AuthRequest $request){
+  
         $credentials = [
             'email' => $request->input('email'),
             'password' => $request->input('password')
