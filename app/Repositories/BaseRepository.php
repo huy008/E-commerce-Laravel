@@ -78,6 +78,10 @@ class BaseRepository implements BaseRepositoryInterface
      {
           return $this->model->select($column)->with($relation)->findOrFail($modelId);
      }
+     public function updateOrInsert(array $payload = [],array $conditions = [])
+     {
+          return $this->model->updateOrInsert($conditions, $payload);
+     }
 
      public function findByCondition( $condition=[])
      {

@@ -82,8 +82,7 @@ class ProductService extends BaseService implements ProductServiceInterface
                          'controllers' => 'App\Http\Controllers\Frontend\ProductController'
                     ];
                     $this->routerRepository->create($router);
-                    $this->createVariant($product,$request,1);
-
+                    $this->createVariant($product, $request, 1);
                }
                // $this->nestedset->Get('level ASC', 'order ASC');
                // $this->nestedset->Recursive(0, $this->nestedset->Set());
@@ -99,54 +98,65 @@ class ProductService extends BaseService implements ProductServiceInterface
           }
      }
 
-     private function createVariant($product,$request,$languageId){
-          $payload = $request->only(['variant','attribute']);
+     private function createVariant($product, $request, $languageId)
+     {
+          $payload = $request->only(['variant', 'attribute']);
           $variant = [];
-          if(isset($payload['variant']['sku']) && count($payload['variant']['sku'])){
-               foreach($payload['variant']['sku'] as $key => $val){
-                    $variant[] =[
-                         'code' =>($payload['variant']['id'][$key]) ?? '',
-                         'quantity' =>($payload['variant']['quantity'][$key]) ?? '',
+          if (isset($payload['variant']['sku']) && count($payload['variant']['sku'])) {
+               foreach ($payload['variant']['sku'] as $key => $val) {
+                    $variant[] = [
+                         'code' => ($payload['variant']['id'][$key]) ?? '',
+                         'quantity' => ($payload['variant']['quantity'][$key]) ?? '',
                          'sku' => $val,
-                         'price' =>($payload['variant']['price'][$key]) ?? '',
-                         'barcode' =>($payload['variant']['barcode'][$key]) ?? '',
-                         'file_name' =>($payload['variant']['file_name'][$key]) ?? '',
-                         'file_url' =>($payload['variant']['file_url'][$key]) ?? '',
-                         'album' =>($payload['variant']['album'][$key]) ?? '',
-                         'user_id' =>Auth::id()
+                         'price' => ($payload['variant']['price'][$key]) ?? '',
+                         'barcode' => ($payload['variant']['barcode'][$key]) ?? '',
+                         'file_name' => ($payload['variant']['file_name'][$key]) ?? '',
+                         'file_url' => ($payload['variant']['file_url'][$key]) ?? '',
+                         'album' => ($payload['variant']['album'][$key]) ?? '',
+                         'user_id' => Auth::id()
                     ];
                }
-              $product->product_variants()->delete();
-              $variants = $product->product_variants()->createMany($variant);
+               $variants = $product->product_variants()->createMany($variant);
                $variantsId = $variants->pluck('id');
-               $productVariantLanguage =[];
+               $productVariantLanguage = [];
                $variantAttributes = [];
-               if(count($variantsId)){
-                    foreach($variantsId as $key => $val){
+               $attributeCombines = $this->comebineAttribute(array_values($payload['attribute']));
+               if (count($variantsId)) {
+                    foreach ($variantsId as $key => $val) {
                          $productVariantLanguage[] = [
                               'product_variant_id' => $val,
-                              'language_id'=>$languageId,
+                              'language_id' => $languageId,
                               'name' => $payload['variant']['name'][$key]
                          ];
-                         if ($payload['attribute']) {
-                              foreach ($payload['attribute'] as $keyAttr => $valAttr) {
-                                   if (count($valAttr)) {
-                                        foreach ($valAttr as $attr) {
+                         if (count($attributeCombines)) {
+                              foreach ($attributeCombines[$key] as $attrId) {
                                              $variantAttributes[] = [
                                                   'product_variant_id' => $val,
-                                                  'attribute_id' => $attr,
+                                                  'attribute_id' => $attrId,
                                              ];
-                                        }
                                    }
-                              };
+                              }
                          }
-                    };
-               }
-               // dd($productVariantLanguage);
+                    }
+               // dd($variantAttributes);    
                $variantLanguage = $this->productVariantLanguageRepository->createBath($productVariantLanguage);
                $variantAttribute = $this->productVariantAttributeRepository->createBath($variantAttributes);
           }
      }
+
+     private function comebineAttribute($attributes = [], $index = 0)
+     {
+          if ($index === count($attributes)) return [[]];
+          $subCombines = $this->comebineAttribute($attributes, $index + 1);
+          $combines = [];
+          foreach ($attributes[$index] as $key => $val) {
+               foreach ($subCombines as $keySub => $valSub) {
+                    $combines[] = array_merge([$val], $valSub);
+               }
+          }
+          return $combines;
+     }
+
      public function update($id, $request)
      {
           DB::beginTransaction();
@@ -173,9 +183,16 @@ class ProductService extends BaseService implements ProductServiceInterface
                     $router = $this->routerRepository->findByCondition($condition);
                     $this->routerRepository->update($router->id);
 
-                    $this->nestedset->Get('level ASC', 'order ASC');
-                    $this->nestedset->Recursive(0, $this->nestedset->Set());
-                    $this->nestedset->Action();
+                    // $this->nestedset->Get('level ASC', 'order ASC');
+                    // $this->nestedset->Recursive(0, $this->nestedset->Set());
+                    // $this->nestedset->Action();
+                    $product->product_variants()->each(function($variant){
+                         $variant->languages()->detach();
+                         $variant->attributes()->detach();
+                         $variant->delete();
+                    });
+
+                    $this->createVariant($product, $request, 1);
                }
                DB::commit();
                return true;

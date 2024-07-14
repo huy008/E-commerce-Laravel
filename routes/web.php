@@ -161,6 +161,7 @@ Route::group(['prefix' => 'permission'], function () {
 });
 Route::group(['prefix' => 'system'], function () {
     Route::get('index', [SystemController::class, "index"])->name('system.index')->middleware('admin');
+    Route::post('store', [SystemController::class, "store"])->name('system.store')->middleware('admin');
 
 });
 //@@new-route@@

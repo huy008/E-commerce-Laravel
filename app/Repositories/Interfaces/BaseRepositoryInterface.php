@@ -18,4 +18,5 @@ interface BaseRepositoryInterface
       public function  createRelationPivot($model, array $payload = [], string $relation = '');
       public function findByCondition($condition = []);
       public function createBath(array $payload = []);
+      public function updateOrInsert(array $payload = [], array $conditions = []);
 }
