@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_catalogue_language', function (Blueprint $table) {
-            $table->unsignedBigInteger('post_catalogue_id');
+        Schema::create('menu_language', function (Blueprint $table) {
+            $table->unsignedBigInteger('menu_id');
             $table->unsignedBigInteger('language_id');
-            $table->foreign('post_catalogue_id')->references('id')->on('post_catalogues')->omDelete('cascade');
+            $table->foreign('menu_id')->references('id')->on('menus')->omDelete('cascade');
             $table->foreign('language_id')->references('id')->on('languages')->omDelete('cascade');
             $table->string('name');
-            $table->text('description');
-            $table->longText('content');
-            $table->string('meta-title');
-            $table->string('meta-keyword');
-            $table->text('meta-description');
+            $table->string('canonical')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_catalogue_language');
+        Schema::dropIfExists('menu_language');
     }
 };

@@ -1,14 +1,16 @@
 <?php
 
 
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Controllers\Backend\AuthController;
-use App\Http\Controllers\Backend\PostController;
 
+use App\Http\Controllers\Backend\MenuController;
+use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\SystemController;
@@ -20,6 +22,7 @@ use App\Http\Controllers\Backend\PostCatalogueController;
 use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
+use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
           use App\Http\Controllers\Backend\AttributeCatalogueController;
           use App\Http\Controllers\Backend\AttributeController;
 
@@ -37,9 +40,10 @@ use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [AuthController::class, "index"])->name('auth.admin')->middleware('login');
 
 Route::get('dashboard/index', [DashboardController::class, "index"])->name('dashboard.index')->middleware('admin');
 
@@ -159,6 +163,18 @@ Route::group(['prefix' => 'permission'], function () {
     Route::post('{id}/update', [ProductController::class, "update"])->name('product.update')->middleware('admin');
     Route::post('{id}/destroy', [ProductController::class, "destroy"])->name('product.destroy')->middleware('admin');
 });
+     Route::group(['prefix' => 'menu'], function () {
+      Route::get('index', [MenuController::class, "index"])->name('menu.index')->middleware('admin');
+    Route::get('create', [MenuController::class, "create"])->name('menu.create')->middleware('admin');
+    Route::post('store', [MenuController::class, "store"])->name('menu.store')->middleware('admin');
+    Route::get('{id}/editMenu', [MenuController::class, "editMenu"])->name('menu.editMenu')->middleware('admin');
+    Route::get('{id}/edit', [MenuController::class, "edit"])->name('menu.edit')->middleware('admin');
+    Route::get('{id}/delete', [MenuController::class, "delete"])->name('menu.delete')->middleware('admin');
+    Route::post('{id}/update', [MenuController::class, "update"])->name('menu.update')->middleware('admin');
+    Route::post('{id}/destroy', [MenuController::class, "destroy"])->name('menu.destroy')->middleware('admin');
+    Route::get('{id}/children', [MenuController::class, "children"])->name('menu.children')->middleware('admin');
+    Route::post('{id}/saveChildren', [MenuController::class, "saveChildren"])->name('menu.save.children')->middleware('admin');
+});
 Route::group(['prefix' => 'system'], function () {
     Route::get('index', [SystemController::class, "index"])->name('system.index')->middleware('admin');
     Route::post('store', [SystemController::class, "store"])->name('system.store')->middleware('admin');
@@ -166,7 +182,7 @@ Route::group(['prefix' => 'system'], function () {
 });
 //@@new-route@@
 
-Route::get('admin', [AuthController::class, "index"])->name('auth.admin')->middleware('login');
+
 
 Route::post('login', [AuthController::class, "login"])->name('auth.login');
 Route::get('logout', [AuthController::class, "logout"])->name('auth.logout');
@@ -175,3 +191,6 @@ Route::get('ajax/location/getLocation', [LocationController::class, "getLocation
 Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, "getAttribute"])->name('ajax.attribute.index')->middleware('admin');
 Route::post('ajax/dashboard/changeStatus', [AjaxDashboardController::class, "changeStatus"])->name('ajax.dashboard.changeStatus')->middleware('admin');
 Route::post('ajax/dashboard/changeStatusAll', [AjaxDashboardController::class, "changeStatusAll"])->name('ajax.dashboard.changeStatusAll')->middleware('admin');
+Route::get('ajax/dashboard/getMenu', [AjaxDashboardController::class, "getMenu"])->name('ajax.dashboard.getMenu')->middleware('admin');
+Route::post('ajax/menu/createCatalogue', [AjaxMenuController::class, "createCatalogue"])->name('ajax.menu.createCatalogue')->middleware('admin');
+Route::post('ajax/menu/drag', [AjaxMenuController::class, "drag"])->name('ajax.menu.drag')->middleware('admin');

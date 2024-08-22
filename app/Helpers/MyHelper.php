@@ -1,3 +1,4 @@
+
 <?php
 
 if (!function_exists('convertRevenueChartData')) {
@@ -48,10 +49,7 @@ if (!function_exists('pre')) {
 if (!function_exists('image')) {
      function image($image)
      {
-
-
           if (is_null($image)) return 'backend/img/not-found.jpg';
-
           $image = str_replace('/public/', '/', $image);
 
           return $image;
@@ -311,7 +309,7 @@ if (!function_exists('recursive')) {
           $temp = [];
           if (!is_null($data) && count($data)) {
                foreach ($data as $key => $val) {
-                    if ($val->parent_id == $parentId) {
+                    if ($val->parentid == $parentId) {
                          $temp[] = [
                               'item' => $val,
                               'children' => recursive($data, $val->id)
@@ -653,11 +651,10 @@ if (!function_exists('convertToIdNameArray')) {
      function convertToIdNameArray($customers)
      {
           $idNameArray = [];
-
           foreach ($customers as $customer) {
                $idNameArray[$customer['id']] = $customer['name'];
           }
-
           return $idNameArray;
      }
 }
+

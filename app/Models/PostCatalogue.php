@@ -27,7 +27,8 @@ class PostCatalogue extends Model
           'right',
           'level',
           'album',
-          'image', 'icon'
+          'image',
+          'icon'
      ];
      protected $table = 'post_catalogues';
 
@@ -42,7 +43,6 @@ class PostCatalogue extends Model
                     'meta_description',
                     'content',
                     'description',
-
                )->withTimestamps();
      }
 

@@ -68,9 +68,11 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
                $postCatalogue = $this->postCatalogueRepository->create($payload);
                if ($postCatalogue->id > 0) {
                     $payloadLanguage = $request->only(['name', 'description', 'content', 'meta_title', 'meta_keyword', 'meta_description', 'canonical']);
+                    
                     $payloadLanguage['language_id'] = $this->currentLanguage();
                     $payloadLanguage['post_catalogue_id'] = $postCatalogue->id;
                     $language = $this->postCatalogueRepository->createTranslatePivot($postCatalogue, $payloadLanguage);
+
 
                     $router = [
                          'canonical' => $payloadLanguage['canonical'],

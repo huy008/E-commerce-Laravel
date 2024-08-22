@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Interfaces\BaseRepositoryInterface;
-use Illuminate\Support\Arr;
 
 /**
  * Class UserService
@@ -22,7 +21,7 @@ class BaseRepository implements BaseRepositoryInterface
           array $column = ['*'],
           array $condition = [],
           array $join = [],
-          int $perPage = 1,
+          int $perPage = 3,
           array $relations = [],
           array $orderBy = [],
           array $rawQuery = [],
@@ -61,7 +60,6 @@ class BaseRepository implements BaseRepositoryInterface
 
      public function create(array $payload = [])
      {
-
           return  $this->model->create($payload);
      }
      public function createBath(array $payload = [])
@@ -78,24 +76,26 @@ class BaseRepository implements BaseRepositoryInterface
      {
           return $this->model->select($column)->with($relation)->findOrFail($modelId);
      }
-     public function updateOrInsert(array $payload = [],array $conditions = [])
+     public function updateOrInsert(array $payload = [], array $conditions = [])
      {
           return $this->model->updateOrInsert($conditions, $payload);
      }
 
-     public function findByCondition( $condition=[])
+     public function findByCondition($condition = [], $flag = false, $relation = [])
      {
-          $query=$this->model->newQuery();
-         foreach ($condition as $key => $value){
-               $query->where($value[0],$value[1],$value[2]);
-         }
-         return $query->first();
+          $query = $this->model->newQuery();
+          $query->where($condition[0], $condition[1], $condition[2]);
+          $query->with($relation);
+          return ($flag == false) ? $query->first() : $query->get();
      }
 
      public function update(int $id = 0, array $payload = [])
      {
           $model = $this->findById($id);
-          return $model->update($payload);
+          $model->fill($payload);
+          $model->save();
+         
+          return $model;
      }
 
      public function destroy(int $id = 0)
@@ -103,9 +103,30 @@ class BaseRepository implements BaseRepositoryInterface
           return $this->findById($id)->delete();
      }
 
+     public function forceDelete(int $id = 0)
+     {
+          return $this->findById($id)->forceDelete();
+     }
+     public function forceDeleteByCondition(array $conditions=[])
+     {
+          $query = $this->model->newQuery();
+          foreach ($conditions as $key => $value) {
+               $query->where($value[0], $value[1], $value[2]);
+          }
+          return $query->forceDelete();
+     }
+
      public function updateByWhereIn(string $whereInField, array $whereIn = [], array $payload = [])
      {
           return $this->model->whereIn($whereInField, $whereIn)->update($payload);
+     }
+     public function updateByWhere(array $conditions, array $payload = [])
+     {
+          $query = $this->model->newQuery();
+          foreach ($conditions as $key => $value) {
+               $query->where($value[0],$value[1],$value[2]);
+          }
+          return $query->update($payload);
      }
 
      public function createTranslatePivot($model, array $payload = [])
@@ -115,6 +136,6 @@ class BaseRepository implements BaseRepositoryInterface
 
      public function  createRelationPivot($model, array $payload = [], string $relation = '')
      {
-          return $model->post_catalogues()->attach($model->id, $payload);
+          return $model->{$relation}()->attach($model->id, $payload);
      }
 }

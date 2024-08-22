@@ -15,7 +15,7 @@
 
     HT.sendData = (option) => {
         $.ajax({
-            url: "http://localhost/ecommerce/ecommerce/public/ajax/location/getLocation",
+            url: "http://127.0.0.1:8000/ajax/location/getLocation",
             type: "GET",
             data: option,
             dataType: "json",

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('user_catalogue_id')->references('id')->on('user_catalogues');
+        Schema::table('post_language', function (Blueprint $table) {
+            $table->string('canonical')->unique();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeignKey('user_catalogue_id');
+        Schema::table('post_language', function (Blueprint $table) {
+            $table->dropColumn('canonical');
         });
     }
 };

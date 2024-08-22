@@ -107,6 +107,14 @@ class Language extends Model
                'description'
           )->withTimestamps();
      }
+     public function menus()
+     {
+          return $this->belongsToMany(Menu::class, 'menu_language', 'language_id', 'menu_id')
+          ->withPivot(
+               'name',
+               'canonical',
+          )->withTimestamps();
+     }
 
      public function attribute_variants()
      {

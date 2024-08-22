@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Post extends Model
 {
      use HasFactory, SoftDeletes;
-
+   
      /**
       * The attributes that are mass assignable.
       *

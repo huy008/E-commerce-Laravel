@@ -63,8 +63,8 @@ class PostService extends BaseService implements PostServiceInterface
                     $payloadLanguage = $request->only(['name', 'description', 'content', 'meta_title', 'meta_keyword', 'meta_description', 'canonical']);
                     $payloadLanguage['language_id'] = $this->currentLanguage();
                     $payloadLanguage['post_id'] = $post->id;
+           
                     $language = $this->postRepository->createTranslatePivot($post, $payloadLanguage);
-
                     $catalogue = $this->catalogue($request);
                     $post->post_catalogues()->sync($catalogue);
                }

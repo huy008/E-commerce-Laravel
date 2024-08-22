@@ -34,7 +34,7 @@ class PostCatalogueController extends Controller
           $postCatalogues = $this->PostCatalogueService->paginate($request);
           $config = [
                'js' => [
-                    '/ecommerce/ecommerce/public/backend//js/plugins/switchery/switchery.js',
+                    'http://127.0.0.1:8000/backend/js/plugins/switchery/switchery.js',
                     'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
                ],
                'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],
@@ -47,10 +47,10 @@ class PostCatalogueController extends Controller
      {
           $config = [
                'js' => [
-                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
-                    '/ecommerce/ecommerce/public/backend//plugins/ckeditor/ckeditor.js',
-                    '/ecommerce/ecommerce/public/backend//library/finder.js',
-                    '/ecommerce/ecommerce/public/backend//library/seo.js'
+                    'http://127.0.0.1:8000/backend/plugins/ckfinder_2/ckfinder.js',
+                    'http://127.0.0.1:8000/backend/plugins/ckeditor/ckeditor.js',
+                    'http://127.0.0.1:8000/backend/library/finder.js',
+                    'http://127.0.0.1:8000/backend/library/seo.js'
                ]
           ];
           $dropdown = $this->nestedset->dropdown();
@@ -72,10 +72,10 @@ class PostCatalogueController extends Controller
           $postCatalogue = $this->PostCatalogueRepository->getPostCatalogueById($id, $this->language);
           $config = [
                'js' => [
-                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
-                    '/ecommerce/ecommerce/public/backend//plugins/ckeditor/ckeditor.js',
-                    '/ecommerce/ecommerce/public/backend//library/finder.js',
-                    '/ecommerce/ecommerce/public/backend//library/seo.js'
+                    'http://127.0.0.1:8000/backend/plugins/ckfinder_2/ckfinder.js',
+                    'http://127.0.0.1:8000/backend/plugins/ckeditor/ckeditor.js',
+                    'http://127.0.0.1:8000/backend/library/finder.js',
+                    'http://127.0.0.1:8000/backend/library/seo.js'
                ]
           ];
           $config['method'] = 'update';

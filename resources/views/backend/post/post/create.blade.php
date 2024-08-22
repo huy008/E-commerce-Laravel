@@ -177,7 +177,7 @@ $url = ($config['method'] == 'create') ? route('post.store') : route('post.updat
                               <div class="row mb15">
                                    <div class="col-lg-12">
                                         <div class="form-row">
-                                             <span class="image img-cover image-target"> <img src="http://localhost/ecommerce/ecommerce/public/backend/img/image.jpg" alt=""></span>
+                                             <span class="image img-cover image-target"> <img src="http://127.0.0.1:8000/backend/img/image.jpg" alt=""></span>
                                              <input type="hidden" name='image'>
                                         </div>
                                    </div>
