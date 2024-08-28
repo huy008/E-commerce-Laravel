@@ -27,7 +27,7 @@ class ProductCatalogue extends Model
           'right',
           'level',
           'album',
-          'image', 'icon'
+          'image',
      ];
      protected $table = 'product_catalogues';
 

@@ -2,17 +2,15 @@
 
 
 
-use Illuminate\Support\Facades\Auth;
-use App\Http\Middleware\Authenticate;
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\LoginMiddleware;
-use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Controllers\Backend\AuthController;
 
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Ajax\LocationController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Backend\GenerateController;
 use App\Http\Controllers\Backend\LanguageController;
@@ -20,15 +18,16 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PostCatalogueController;
 use App\Http\Controllers\Backend\UserCatalogueController;
+use App\Http\Controllers\Frontend\FrontendCatalogueController;
+use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
 use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
-use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
           use App\Http\Controllers\Backend\AttributeCatalogueController;
           use App\Http\Controllers\Backend\AttributeController;
 
           use App\Http\Controllers\Backend\ProductCatalogueController;
           use App\Http\Controllers\Backend\ProductController;
-     //@@new-use@@
+//@@new-use@@
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,12 +39,13 @@ use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/', [AuthController::class, "index"])->name('auth.admin')->middleware('login');
+Route::get('/', [HomeController::class, "index"])->name('home.index');
+Route::get('/admin', [AuthController::class, "index"])->name('auth.admin')->middleware('login');
 
 Route::get('dashboard/index', [DashboardController::class, "index"])->name('dashboard.index')->middleware('admin');
+
+Route::get('{id}/showProductByCat', [HomeController::class, "showProductByCat"])->name('frontend.showProductByCat')->middleware('admin');
+Route::get('{id}/detail', [HomeController::class, "detail"])->name('frontend.detail')->middleware('admin');
 
 Route::group(['prefix' => 'user'], function () {
     Route::get('index', [UserController::class, "index"])->name('user.index')->middleware('admin');

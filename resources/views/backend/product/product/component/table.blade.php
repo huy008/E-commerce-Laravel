@@ -19,7 +19,7 @@
                     <div class="uk-flex uk-flex-middle" style="display:flex">
                          <div class="image" style="margin-right:20px">
                               <div class="image-cover">
-                                   <img style="width:80px" src="http://localhost/ecommerce/ecommerce{{$product->image}}" alt="">
+                                   <img style="width:80px" src="http://127.0.0.1:8000{{$product->image}}" alt="">
                               </div>
                          </div>
                          <div class="main-info">
@@ -27,7 +27,7 @@
                               <div class="catalogue">
                                    <span class="text-danger">Nhom hien thi</span>
                                    @foreach($product->product_catalogues as $val)
-                                   @foreach($val->productCatalogueLanguage as $cat)
+                                   @foreach($val->product_catalogue_language as $cat)
                                    <a href="">{{$cat->name}}</a>
                                    @endforeach
                                    @endforeach

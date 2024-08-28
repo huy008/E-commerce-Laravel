@@ -29,7 +29,7 @@ class Attribute extends Model
 
      public function languages()
      {
-          return $this->belongsToMany(Language::class, 'attribute_language','attribute_id', 'language_id')
+          return $this->belongsToMany(Language::class, 'attribute_language', 'attribute_id', 'language_id')
                ->withPivot(
                     'name',
                     'canonical',
@@ -44,7 +44,7 @@ class Attribute extends Model
 
      public function attribute_catalogues()
      {
-          return $this->belongsToMany( AttributeCatalogue::class, 'attribute_catalogue_attribute', 'attribute_id', 'attribute_catalogue_id');
+          return $this->belongsToMany(AttributeCatalogue::class, 'attribute_catalogue_attribute', 'attribute_id', 'attribute_catalogue_id');
      }
      public function attribute_language()
      {

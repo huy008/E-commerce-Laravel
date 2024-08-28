@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Classes\Nestedsetbie;
-use App\Models\Product;
-// use App\Http\Requests\StoreRequest;
-// use App\Http\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DeleteProductRequest;
 use App\Services\Interfaces\ProductServiceInterface as ProductService;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 use App\Repositories\Interfaces\AttributeCatalogueRepositoryInterface as AttributeCatalogueRepository;
@@ -37,7 +33,7 @@ class ProductController extends Controller
           $products = $this->productService->paginate($request);
           $config = [
                'js' => [
-                    '/ecommerce/ecommerce/public/backend//js/plugins/switchery/switchery.js',
+                    'http://127.0.0.1:8000/backend/js/plugins/switchery/switchery.js',
                     'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
                ],
                'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],
@@ -51,17 +47,17 @@ class ProductController extends Controller
      {
           $config = [
                'js' => [
-                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
-                    '/ecommerce/ecommerce/public/backend//plugins/ckeditor/ckeditor.js',
-                    '/ecommerce/ecommerce/public/backend//library/finder.js',
-                    '/ecommerce/ecommerce/public/backend//library/library.js',
-                    'http://localhost/ecommerce/ecommerce/public/backend/plugins/nice-select/js/jquery.nice-select.min.js',
+                    'http://127.0.0.1:8000/backend/plugins/ckfinder_2/ckfinder.js',
+                    'http://127.0.0.1:8000/backend/plugins/ckeditor/ckeditor.js',
+                    'http://127.0.0.1:8000/backend/library/finder.js',
+                    'http://127.0.0.1:8000/backend/library/library.js',
+                    'http://127.0.0.1:8000/backend/plugins/nice-select/js/jquery.nice-select.min.js',
                     'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-                    '/ecommerce/ecommerce/public/backend//library/variant.js',
-                    '/ecommerce/ecommerce/public/backend//js/plugins/switchery/switchery.js'
+                    'http://127.0.0.1:8000/backend/library/variant.js',
+                    'http://127.0.0.1:8000/backend/js/plugins/switchery/switchery.js'
                ],
                'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
-                    'http://localhost/ecommerce/ecommerce/public/backend/plugins/nice-select/css/nice-select.css',],
+                    'http://127.0.0.1:8000/backend/plugins/nice-select/css/nice-select.css',],
           ];
           $attributeCatalogue = $this->attributeCatalogueRepository->getAll($this->currentLanguage());
           $dropdown = $this->nestedset->dropdown();
@@ -73,20 +69,20 @@ class ProductController extends Controller
      public function store(Request $request)
      {
           if ($this->productService->create($request)) {
-               return redirect()->route('product.product.index')->with('success', 'Thêm mới bản ghi thành công');
+               return redirect()->route('product.index')->with('success', 'Thêm mới bản ghi thành công');
           }
-          return redirect()->route('product.product.index')->with('error', 'Thêm mới bản ghi không thành công. Hãy thử lại');
+          return redirect()->route('product.index')->with('error', 'Thêm mới bản ghi không thành công. Hãy thử lại');
      }
 
      public function edit($id)
      {
-          $product = $this->productRepository->getproductById($id, $this->currentLanguage());
+          $product = $this->productRepository->getProductById($id, $this->currentLanguage());
           $config = [
                'js' => [
-                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
-                    '/ecommerce/ecommerce/public/backend//plugins/ckeditor/ckeditor.js',
-                    '/ecommerce/ecommerce/public/backend//library/finder.js',
-                    '/ecommerce/ecommerce/public/backend//library/seo.js',
+                    'http://127.0.0.1:8000/backend/plugins/ckfinder_2/ckfinder.js',
+                    'http://127.0.0.1:8000/backend/plugins/ckeditor/ckeditor.js',
+                    'http://127.0.0.1:8000/backend/library/finder.js',
+                    'http://127.0.0.1:8000/backend/library/seo.js',
                     'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
                ],
                'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],

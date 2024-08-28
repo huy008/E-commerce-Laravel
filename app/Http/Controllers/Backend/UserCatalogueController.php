@@ -28,7 +28,7 @@ class UserCatalogueController extends Controller
         $userCatalogues = $this->userCatalogueService->paginate($request);
         $config = [
             'js' => [
-                '/ecommerce/ecommerce/public/backend//js/plugins/switchery/switchery.js',
+                'http://127.0.0.1:8000/backend/js/plugins/switchery/switchery.js',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
             ],
             'css' => ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'],

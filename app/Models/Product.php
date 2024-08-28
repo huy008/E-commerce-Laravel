@@ -37,7 +37,6 @@ class Product extends Model
                     'meta_description',
                     'content',
                     'description',
-                    'product_catalogue_id'
                )->withTimestamps();
      }
 

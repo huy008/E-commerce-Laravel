@@ -23,7 +23,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                'products.id',
                //  'products.parentid',
                 'products.image',
-               'products.icon',
                'products.album',
                'products.publish',
                'products.follow',

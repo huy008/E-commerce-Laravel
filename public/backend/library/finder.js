@@ -105,7 +105,8 @@
         var finder = new CKFinder();
         finder.resourceType = type;
         finder.selectActionFunction = function (fileUrl, data) {
-            var newfileUrl = "http://localhost/ecommerce/ecommerce/" + fileUrl;
+            var newfileUrl = fileUrl;
+            console.log(newfileUrl);
             object.find("img").attr("src", newfileUrl);
             object.siblings("input").val(fileUrl);
         };
@@ -145,12 +146,7 @@
                 html += '<li class="ui-state-default">';
                 html += ' <div class="thumb">';
                 html += ' <span class="span image img-scaledown">';
-                html +=
-                    '<img src="http://localhost/ecommerce/ecommerce' +
-                    image +
-                    '" alt="' +
-                    image +
-                    '">';
+                html += '<img src="' + image + '" alt="' + image + '">';
                 html +=
                     '<input type="hidden" name="album[]" value="' +
                     image +

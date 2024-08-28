@@ -4,11 +4,8 @@ namespace App\Services;
 
 use Exception;
 use App\Classes\Nestedsetbie;
-use App\Models\Product;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Services\Interfaces\ProductServiceInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 use App\Repositories\Interfaces\ProductVariantLanguageRepositoryInterface as ProductVariantLanguageRepository;
@@ -67,7 +64,7 @@ class ProductService extends BaseService implements ProductServiceInterface
      {
           DB::beginTransaction();
           try {
-               $payload = $request->only(['parentid', 'follow', 'publish', 'image']);
+               $payload = $request->only(['parentid', 'follow', 'publish', 'image', 'product_catalogue_id']);
                $payload["user_id"] = Auth::id();
                $product = $this->productRepository->create($payload);
                if ($product->id > 0) {
@@ -76,19 +73,15 @@ class ProductService extends BaseService implements ProductServiceInterface
                     $payloadLanguage['product_id'] = $product->id;
                     $language = $this->productRepository->createTranslatePivot($product, $payloadLanguage);
 
-                    $router = [
-                         'canonical' => $payloadLanguage['canonical'],
-                         'module_id' => $product->id,
-                         'controllers' => 'App\Http\Controllers\Frontend\ProductController'
-                    ];
-                    $this->routerRepository->create($router);
+                    $catalogue = $this->catalogue($request);
+                    $product->product_catalogues()->sync($catalogue);
+
                     $this->createVariant($product, $request, 1);
                }
                // $this->nestedset->Get('level ASC', 'order ASC');
                // $this->nestedset->Recursive(0, $this->nestedset->Set());
                // $this->nestedset->Action();
                DB::commit();
-               die();
                return true;
           } catch (Exception $e) {
                DB::rollBack();
@@ -97,7 +90,10 @@ class ProductService extends BaseService implements ProductServiceInterface
                return false;
           }
      }
-
+     private function catalogue($request)
+     {
+          return array_unique(array_merge($request->input('catalogue') ?? [], [$request->product_catalogue_id]));
+     }
      private function createVariant($product, $request, $languageId)
      {
           $payload = $request->only(['variant', 'attribute']);

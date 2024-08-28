@@ -284,7 +284,7 @@ $url = ($config['method'] == 'create') ? route('product.store') : route('product
                               <div class="row mb15">
                                    <div class="col-lg-12">
                                         <div class="form-row">
-                                             <span class="image img-cover image-target"> <img src="http://localhost/ecommerce/ecommerce/public/backend/img/image.jpg" alt=""></span>
+                                             <span class="image img-cover image-target"> <img src="http://127.0.0.1:8000/backend/img/image.jpg" alt=""></span>
                                              <input type="hidden" name='image'>
                                         </div>
                                    </div>
@@ -420,7 +420,7 @@ $url = ($config['method'] == 'create') ? route('product.store') : route('product
                     minimumInputLength: 2,
                     //placeholder: "Nhap toi thieu 2 ky tu",
                     ajax: {
-                         url: 'http://localhost/ecommerce/ecommerce/public/ajax/attribute/getAttribute',
+                         url: 'http://127.0.0.1:8000/ajax/attribute/getAttribute',
                          type: 'GET',
                          dataType: 'json',
                          delay: 250,
@@ -707,7 +707,7 @@ $url = ($config['method'] == 'create') ? route('product.store') : route('product
                          html += ' <div class="thumb">';
                          html += ' <span class="span image img-scaledown">';
                          html +=
-                              '<img src="http://localhost/ecommerce/ecommerce' +
+                              '<img src="' +
                               image +
                               '" alt="' +
                               image +
@@ -757,7 +757,7 @@ $url = ($config['method'] == 'create') ? route('product.store') : route('product
                          html += ' <li class="ui-state-default"> '
                          html += '<div class="thumb"> '
                          html += '<span class="span image img-scaledown">'
-                         html += ' <img src="http://localhost/ecommerce/ecommerce' + album[i] + '" alt="' + album[i] + '">'
+                         html += ' <img src="' + album[i] + '" alt="' + album[i] + '">'
                          html += ' <input type="hidden" name="variantAlbum[]" value="' + album[i] + '">'
                          html += ' </span>'
                          html += '<button class="variant-delete-image" fdprocessedid="pjui73">'
@@ -906,7 +906,7 @@ $url = ($config['method'] == 'create') ? route('product.store') : route('product
                $.each(option, function(index, value) {
                     $('.updateVariantTr').prev().find('.td-' + index).html(value)
                })
-               $('.updateVariantTr').prev().find('.imgSrc').attr('src', 'http://localhost/ecommerce/ecommerce' + variant.album[0])
+               $('.updateVariantTr').prev().find('.imgSrc').attr('src',  + variant.album[0])
                console.log(variant.album[0])
           }
           $(document).ready(function() {

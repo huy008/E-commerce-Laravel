@@ -21,7 +21,7 @@ class BaseRepository implements BaseRepositoryInterface
           array $column = ['*'],
           array $condition = [],
           array $join = [],
-          int $perPage = 3,
+          int $perPage = 1,
           array $relations = [],
           array $orderBy = [],
           array $rawQuery = [],

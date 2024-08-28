@@ -30,9 +30,9 @@ class SystemController extends Controller
          $systems =convert_array($this->systemRepository->all(),'keyword','content');
           $config = [
                'js' =>[
-                    '/ecommerce/ecommerce/public/backend//plugins/ckeditor/ckeditor.js',
-                    '/ecommerce/ecommerce/public/backend//plugins/ckfinder_2/ckfinder.js',
-                    '/ecommerce/ecommerce/public/backend//library/finder.js'
+                    'http://127.0.0.1:8000/backend/plugins/ckeditor/ckeditor.js',
+                    'http://127.0.0.1:8000/backend/plugins/ckfinder_2/ckfinder.js',
+                    'http://127.0.0.1:8000/backend/library/finder.js'
                ]
           ];
           $template = 'backend.system.index';

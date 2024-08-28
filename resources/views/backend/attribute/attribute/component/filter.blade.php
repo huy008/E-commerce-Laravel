@@ -16,7 +16,7 @@
                     <select name="attribute_catalogue_id" class="form-control setupSelect2">
                          @foreach($dropdown as $key => $value)
                          <option value="{{$key}}" checked>{{$value}}</option>
-                              @endforeach
+                         @endforeach
                     </select>
 
                     <div>
